@@ -9,19 +9,17 @@ export class UserRepositoryImpl
   implements UserRepository
 {
   // FIXME
-  // /**
-  //  *
-  //  * Find user by token
-  //  *
-  //  * @param token
-  //  * @return Promise<UserEntity>
-  //  *
-  //  */
-  // findByToken(token: string): Promise<UserEntity> {
-  //   return this.findOne({
-  //     where: { token: { refreshToken: token }, relations: [] },
-  //   });
-  // }
+  /**
+   *
+   * Find user by token
+   *
+   * @param token
+   * @return Promise<UserEntity>
+   *
+   */
+  findByToken(token: string): Promise<UserEntity> {
+    return this.findOne({ token: { refreshToken: token } });
+  }
 
   /**
    *

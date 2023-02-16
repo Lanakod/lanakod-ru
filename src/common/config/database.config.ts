@@ -7,15 +7,20 @@ import {
 export class PostgresConfig {
   static getOrmConfig(configService: ConfigService): MikroOrmModuleOptions {
     return {
-      // autoLoadEntities: true,
-      entities: ['./dist/persistence/**/*.entity.js'],
-      entitiesTs: ['./src/persistence/**/*.entity.ts'],
+      autoLoadEntities: true,
+      // entities: ['./dist/persistence/**/*.entity.js'],
+      // entitiesTs: ['./src/persistence/**/*.entity.ts'],
       dbName: configService.get('DB_NAME'),
       host: configService.get('DB_HOST'),
       port: Number(configService.get('DB_PORT')),
       user: configService.get('DB_USERNAME'),
       password: configService.get('DB_PASSWORD'),
+      debug: true,
       type: 'postgresql',
+      migrations: {
+        path: 'dist/database/migrations',
+        pathTs: 'src/database/migrations',
+      },
     };
   }
 }

@@ -18,8 +18,8 @@ export class TokenRepositoryImpl
    *
    */
   async newToken(userId: number, _token: string): Promise<TokenEntity> {
-    const e = this.create({ userId, refreshToken: _token });
-    this.persist(e);
+    const e = this.create({ user: { id: userId }, refreshToken: _token });
+    await this.persistAndFlush(e);
     return e;
   }
 
@@ -32,7 +32,11 @@ export class TokenRepositoryImpl
    *
    */
   findByUserId(userId: number): Promise<TokenEntity> {
-    return this.findOne({ userId });
+    return this.findOne({
+      user: {
+        id: userId,
+      },
+    });
   }
 
   /**

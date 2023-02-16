@@ -50,7 +50,7 @@ export class TokenServiceImpl implements TokenService {
    *
    */
   async saveToken(id: number, _token: string): Promise<TokenModel> {
-    const token = await this.tokenRepository.findOne({ userId: id });
+    const token = await this.tokenRepository.findOne({ user: { id } });
     console.log(token);
     if (token) {
       token.refreshToken = _token;

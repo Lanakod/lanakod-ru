@@ -58,7 +58,7 @@ export class AuthServiceImpl implements AuthService {
    * @return {Promise<IApiResponse>}
    */
   async register(data: IRegister): Promise<IApiResponse> {
-    if (await this.candidateExist(data.email)) {
+    if (await this.candidateExist(data.email, data.username)) {
       throw new BadRequestException(USER_ALREADY_EXISTS);
     }
 
@@ -85,7 +85,7 @@ export class AuthServiceImpl implements AuthService {
    * @return {IApiResponse}
    */
   async login(data: ILogin): Promise<IApiResponse> {
-    const user = await this.candidateExist(data.email);
+    const user = await this.candidateExist(data.email, data.username);
     if (!user) {
       throw new NotFoundException(USER_NOT_FOUND);
     }
@@ -121,10 +121,14 @@ export class AuthServiceImpl implements AuthService {
    *
    * @private
    * @param email
+   * @param username
    * @return {Promise<UserModel | boolean>}
    */
-  private async candidateExist(email: string): Promise<UserModel> {
-    const user = await this.userService.findOne('email', email);
+  private async candidateExist(
+    email: string,
+    username: string,
+  ): Promise<UserModel> {
+    const user = await this.userService.findOne(email, username);
     if (!user) return null;
 
     return UserModel.toModel(user);

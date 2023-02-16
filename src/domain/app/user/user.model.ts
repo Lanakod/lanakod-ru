@@ -2,9 +2,7 @@ import UserEntity from '@persistence/app/user/user.entity';
 
 export default class UserModel {
   private id: number;
-  private givenName: string;
-  private familyName: string;
-  private patronymic: string;
+  private username: string;
   private email: string;
 
   get Id(): number {
@@ -15,28 +13,12 @@ export default class UserModel {
     this.id = value;
   }
 
-  get GivenName(): string {
-    return this.givenName;
+  get Username(): string {
+    return this.username;
   }
 
-  set GivenName(value: string) {
-    this.givenName = value;
-  }
-
-  get FamilyName(): string {
-    return this.familyName;
-  }
-
-  set FamilyName(value: string) {
-    this.familyName = value;
-  }
-
-  get Patronymic(): string {
-    return this.patronymic;
-  }
-
-  set Patronymic(value: string) {
-    this.patronymic = value;
+  set Username(value: string) {
+    this.username = value;
   }
 
   get Email(): string {
@@ -50,10 +32,8 @@ export default class UserModel {
   static toModel(user: UserEntity) {
     const model = new UserModel();
     model.Id = user.id;
-    model.GivenName = user.givenName;
-    model.FamilyName = user.familyName;
-    // model.Email = user.email;
-    model.Patronymic = user.patronymic;
+    model.Username = user.username;
+    model.Email = user.email;
 
     return model;
   }

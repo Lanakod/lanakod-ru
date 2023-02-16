@@ -38,14 +38,14 @@ export class UserServiceImpl implements UserService {
    *
    */
   async create(dto: ICreateUser): Promise<UserModel> {
-    const token = this.userRepository.create({
-      givenName: dto.given_name,
-      familyName: dto.family_name,
-      patronymic: dto.patronymic,
+    const user = this.userRepository.create({
+      username: dto.username,
       id: dto.id,
+      email: dto.email,
+      password: dto.password,
     });
 
-    this.userRepository.persist(token);
+    await this.userRepository.persistAndFlush(user);
 
     // await this.userRepository.save({
     //   givenName: dto.given_name,
@@ -54,9 +54,9 @@ export class UserServiceImpl implements UserService {
     //   id: dto.id,
     // });
 
-    if (!token) return null;
+    if (!user) return null;
 
-    return UserModel.toModel(token);
+    return UserModel.toModel(user);
   }
 
   /**
@@ -77,12 +77,22 @@ export class UserServiceImpl implements UserService {
    *
    * Find user by entity key
    *
-   * @param key
-   * @param value
+   * @param email
+   * @param username
    * @return {Promise<UserEntity>}
    */
-  async findOne(key: keyof UserEntity, value: any): Promise<UserEntity> {
-    const user = await this.userRepository.findByField(key, value);
+  async findOne(email: string, username: string): Promise<UserEntity> {
+    const user = await this.userRepository.findOne({
+      $or: [
+        {
+          username,
+        },
+        {
+          email,
+        },
+      ],
+    });
+    console.log('[USER]', user);
     if (!user) return null;
 
     return user;
@@ -112,10 +122,10 @@ export class UserServiceImpl implements UserService {
    */
 
   // FIXME
-  // async getByToken(token: string): Promise<UserModel> {
-  //   const user = await this.userRepository.findByToken(token);
-  //   if (!user) return null;
-  //
-  //   return UserModel.toModel(user);
-  // }
+  async getByToken(token: string): Promise<UserModel> {
+    const user = await this.userRepository.findByToken(token);
+    if (!user) return null;
+
+    return UserModel.toModel(user);
+  }
 }

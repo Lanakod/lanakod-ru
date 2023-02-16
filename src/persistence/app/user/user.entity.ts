@@ -1,6 +1,7 @@
-import { Entity, Property } from '@mikro-orm/core';
+import { Entity, OneToOne, Property } from '@mikro-orm/core';
 import { UserRepositoryImpl } from '@persistence/app/user/user.repository';
 import { BaseEntity } from '@common/types/base-entity.type';
+import { TokenEntity } from '@persistence/app/token/token.entity';
 
 @Entity({
   tableName: 'users',
@@ -11,20 +12,7 @@ export default class UserEntity extends BaseEntity {
     type: 'varchar',
     nullable: true,
   })
-  givenName: string;
-
-  @Property({
-    type: 'varchar',
-    nullable: true,
-  })
-  familyName: string;
-
-  @Property({
-    type: 'varchar',
-    unique: true,
-    nullable: true,
-  })
-  patronymic: string;
+  username: string;
 
   @Property({
     type: 'varchar',
@@ -42,4 +30,10 @@ export default class UserEntity extends BaseEntity {
     default: false,
   })
   isAdmin: boolean;
+
+  @OneToOne(() => TokenEntity, (token) => token.user, {
+    owner: true,
+    nullable: true,
+  })
+  token?: TokenEntity;
 }

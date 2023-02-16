@@ -26,21 +26,21 @@ export interface UserService {
    *
    * Find user by entity key
    *
-   * @param key
-   * @param value
+   * @param email
+   * @param username
    * @return {Promise<UserEntity>}
    */
-  findOne(key: keyof UserEntity, value: any): Promise<UserEntity>;
+  findOne(email: string, username: string): Promise<UserEntity>;
 
   // FIXME
-  // /**
-  //  *
-  //  * Get user by token
-  //  *
-  //  * @param token
-  //  * @return {Promise<UserModel>}
-  //  */
-  // getByToken(token: string): Promise<UserModel>;
+  /**
+   *
+   * Get user by token
+   *
+   * @param token
+   * @return {Promise<UserModel>}
+   */
+  getByToken(token: string): Promise<UserModel>;
 
   /**
    *

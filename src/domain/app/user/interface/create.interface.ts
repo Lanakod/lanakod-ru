@@ -1,7 +1,6 @@
 export interface ICreateUser {
-  given_name: string;
-  family_name: string;
-  patronymic: string;
+  username: string;
   id?: number;
-  password?: string;
+  password: string;
+  email: string;
 }
