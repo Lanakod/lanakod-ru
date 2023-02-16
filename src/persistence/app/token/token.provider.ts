@@ -1,12 +1,12 @@
 import { Provider } from '@nestjs/common';
 import { TOKEN_REPOSITORY } from '@config/constants';
-import { DataSource } from 'typeorm';
-import { TokenRepositoryImpl } from '@persistence/app/token/token.repository';
+import { MikroORM } from '@mikro-orm/core';
+import { TokenEntity } from '@persistence/app/token/token.entity';
 
 export const TokenRepoProvider: Provider = {
   provide: TOKEN_REPOSITORY,
-  useFactory: (dataSource: DataSource) => {
-    return dataSource.getRepository(TokenRepositoryImpl);
+  useFactory: (orm: MikroORM) => {
+    return orm.em.getRepository(TokenEntity);
   },
-  inject: [DataSource],
+  inject: [MikroORM],
 };

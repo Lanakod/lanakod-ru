@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { EntityRepository, Repository } from 'typeorm';
-import TokenEntity from '@persistence/app/token/token.entity';
+import { TokenEntity } from '@persistence/app/token/token.entity';
 import TokenRepository from '@persistence/app/token/interface/repository.interface';
-import { InjectRepository } from '@nestjs/typeorm';
+import { EntityRepository } from '@mikro-orm/core';
 
 @Injectable()
 export class TokenRepositoryImpl
-  extends Repository<TokenEntity>
+  extends EntityRepository<TokenEntity>
   implements TokenRepository
 {
   /**
@@ -19,7 +18,9 @@ export class TokenRepositoryImpl
    *
    */
   async newToken(userId: number, _token: string): Promise<TokenEntity> {
-    return this.save({ userId, refreshToken: _token });
+    const e = this.create({ userId, refreshToken: _token });
+    this.persist(e);
+    return e;
   }
 
   /**
@@ -31,7 +32,7 @@ export class TokenRepositoryImpl
    *
    */
   findByUserId(userId: number): Promise<TokenEntity> {
-    return this.findOne({ where: { userId } });
+    return this.findOne({ userId });
   }
 
   /**

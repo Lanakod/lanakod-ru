@@ -1,16 +1,13 @@
-import { DataSource, EntityRepository, Repository } from 'typeorm';
 import UserEntity from '@persistence/app/user/user.entity';
 import { UserRepository } from './interface/repository.interface';
 import { Injectable } from '@nestjs/common';
+import { EntityRepository } from '@mikro-orm/core';
 
 @Injectable()
 export class UserRepositoryImpl
-  extends Repository<UserEntity>
+  extends EntityRepository<UserEntity>
   implements UserRepository
 {
-  constructor(private dataSource: DataSource) {
-    super(UserEntity, dataSource.createEntityManager());
-  }
   // FIXME
   // /**
   //  *
@@ -35,7 +32,7 @@ export class UserRepositoryImpl
    *
    */
   findById(id: number): Promise<UserEntity> {
-    return this.findOne({ where: { id }, relations: [] });
+    return this.findOne({ id });
   }
 
   /**
@@ -48,6 +45,6 @@ export class UserRepositoryImpl
    *
    */
   findByField(field: keyof UserEntity, value: any): Promise<UserEntity> {
-    return this.findOne({ where: { [field]: value }, relations: [] });
+    return this.findOne({ [field]: value });
   }
 }

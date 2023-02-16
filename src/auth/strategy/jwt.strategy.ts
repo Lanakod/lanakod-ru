@@ -1,9 +1,12 @@
-import { AUTH_SERVICE, UNAUTHORIZED_EXCEPTION } from '@config/constants';
-import { ACCESS_TOKEN_NAME } from '@config/constants';
+import {
+  ACCESS_TOKEN_NAME,
+  AUTH_SERVICE,
+  UNAUTHORIZED_EXCEPTION,
+} from '@config/constants';
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Request } from 'express';
-import { Strategy, ExtractJwt } from 'passport-jwt';
+import { ExtractJwt, Strategy } from 'passport-jwt';
 import JwtPayload from '@auth/interface/jwt-payload.interface';
 import { AuthService } from '@auth/interface/service.interface';
 

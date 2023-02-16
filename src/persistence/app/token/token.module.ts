@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { TokenRepositoryImpl } from '@persistence/app/token/token.repository';
-import TokenEntity from '@persistence/app/token/token.entity';
+import { TokenEntity } from '@persistence/app/token/token.entity';
+import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { TokenRepoProvider } from '@persistence/app/token/token.provider';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([TokenEntity, TokenRepositoryImpl])],
+  imports: [MikroOrmModule.forFeature({ entities: [TokenEntity] })],
   providers: [TokenRepoProvider],
-  exports: [TokenRepoProvider, TypeOrmModule],
+  exports: [TokenRepoProvider, MikroOrmModule],
 })
 export class TokenModule {}

@@ -13,18 +13,42 @@
     "incremental": true,
     "skipLibCheck": true,
     "paths": {
-      "@enums/*": ["common/enums/*"],
-      "@decorators/*": ["common/decorators/*"],
-      "@interceptors/*": ["common/interceptors/*"],
-      "@config/*": ["common/config/*"],
-      "@database/*": ["database/*"],
-      "@persistence/*": ["persistence/*"],
-      "@common/*": ["common/*"],
-      "@domain/*": ["domain/*"],
-      "@utils/*": ["utils/*"],
-      "@auth/*": ["auth/*"],
-      "@api/*": ["api/*"]
+      "@enums/*": [
+        "common/enums/*"
+      ],
+      "@decorators/*": [
+        "common/decorators/*"
+      ],
+      "@interceptors/*": [
+        "common/interceptors/*"
+      ],
+      "@config/*": [
+        "common/config/*"
+      ],
+      "@database/*": [
+        "database/*"
+      ],
+      "@persistence/*": [
+        "persistence/*"
+      ],
+      "@common/*": [
+        "common/*"
+      ],
+      "@domain/*": [
+        "domain/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ],
+      "@auth/*": [
+        "auth/*"
+      ],
+      "@api/*": [
+        "api/*"
+      ]
     }
   },
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*"
+  ]
 }

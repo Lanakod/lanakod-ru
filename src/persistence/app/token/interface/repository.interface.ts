@@ -1,7 +1,7 @@
-import TokenEntity from '@persistence/app/token/token.entity';
-import { Repository } from 'typeorm';
+import { TokenEntity } from '@persistence/app/token/token.entity';
+import { EntityRepository } from '@mikro-orm/core';
 
-export default interface TokenRepository extends Repository<TokenEntity> {
+export default interface TokenRepository extends EntityRepository<TokenEntity> {
   /**
    *
    * Save new token in database

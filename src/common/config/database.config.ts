@@ -1,35 +1,30 @@
-import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import {
-  TypeOrmModuleAsyncOptions,
-  TypeOrmModuleOptions,
-} from '@nestjs/typeorm';
-import UserEntity from '@persistence/app/user/user.entity';
-import TokenEntity from '@persistence/app/token/token.entity';
+  MikroOrmModuleAsyncOptions,
+  MikroOrmModuleOptions,
+} from '@mikro-orm/nestjs';
 
 export class PostgresConfig {
-  static getOrmConfig(configService: ConfigService): PostgresConnectionOptions {
+  static getOrmConfig(configService: ConfigService): MikroOrmModuleOptions {
     return {
-      type: 'postgres',
-      database: configService.get('DB_NAME'),
+      // autoLoadEntities: true,
+      entities: ['./dist/persistence/**/*.entity.js'],
+      entitiesTs: ['./src/persistence/**/*.entity.ts'],
+      dbName: configService.get('DB_NAME'),
       host: configService.get('DB_HOST'),
       port: Number(configService.get('DB_PORT')),
-      username: configService.get('DB_USERNAME'),
+      user: configService.get('DB_USERNAME'),
       password: configService.get('DB_PASSWORD'),
-      synchronize: true,
-      entities: [process.cwd() + '/dist/persistence/**/*.entity.js'],
-      // entities: [UserEntity, TokenEntity],
-      migrationsTableName: 'migrations',
-      migrations: [process.cwd() + '/src/database/migrations/*{.js,.ts}'],
+      type: 'postgresql',
     };
   }
 }
 
-export const postgresDbConfigAsync: TypeOrmModuleAsyncOptions = {
+export const postgresDbConfigAsync: MikroOrmModuleAsyncOptions = {
   imports: [ConfigModule],
   useFactory: async (
     configService: ConfigService,
-  ): Promise<TypeOrmModuleOptions> =>
+  ): Promise<MikroOrmModuleOptions> =>
     PostgresConfig.getOrmConfig(configService),
   inject: [ConfigService],
 };

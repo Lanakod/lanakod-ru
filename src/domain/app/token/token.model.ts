@@ -1,4 +1,4 @@
-import TokenEntity from '@persistence/app/token/token.entity';
+import { TokenEntity } from '@persistence/app/token/token.entity';
 
 export default class TokenModel {
   private id: number;
@@ -7,6 +7,7 @@ export default class TokenModel {
   getId() {
     return this.id;
   }
+
   setId(value: number) {
     this.id = value;
   }
@@ -14,6 +15,7 @@ export default class TokenModel {
   getToken() {
     return this.token;
   }
+
   setToken(value: string) {
     this.token = value;
   }

@@ -1,67 +1,45 @@
-import {
-  BaseEntity,
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Entity, Property } from '@mikro-orm/core';
+import { UserRepositoryImpl } from '@persistence/app/user/user.repository';
+import { BaseEntity } from '@common/types/base-entity.type';
 
-@Entity('users')
+@Entity({
+  tableName: 'users',
+  customRepository: () => UserRepositoryImpl,
+})
 export default class UserEntity extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column({
+  @Property({
     type: 'varchar',
     nullable: true,
   })
   givenName: string;
 
-  @Column({
+  @Property({
     type: 'varchar',
     nullable: true,
   })
   familyName: string;
 
-  @Column({
+  @Property({
     type: 'varchar',
     unique: true,
     nullable: true,
   })
   patronymic: string;
 
-  @Column({
+  @Property({
     type: 'varchar',
     unique: true,
     nullable: true,
   })
   email: string;
 
-  @Column('varchar', {
-    nullable: true,
-  })
+  @Property({ type: 'varchar', nullable: true })
   password: string;
 
-  @Column({
+  @Property({
     type: 'boolean',
     name: 'is_admin',
     default: false,
   })
   isAdmin: boolean;
-
-  @CreateDateColumn({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
-    name: 'created_at',
-  })
-  createdAt: Date;
-
-  @UpdateDateColumn({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
-    onUpdate: 'CURRENT_TIMESTAMP(6)',
-    name: 'updated_at',
-  })
-  updatedAt: Date;
 }

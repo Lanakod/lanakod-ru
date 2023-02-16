@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { UserService } from '@domain/app/user/interface/service.interface';
 import UserModel from '@domain/app/user/user.model';
 import { ICreateUser } from '@domain/app/user/interface/create.interface';
-import { COLLEGE_REPOSITORY, USER_REPOSITORY } from '@config/constants';
+import { USER_REPOSITORY } from '@config/constants';
 import { UserRepository } from '@persistence/app/user/interface/repository.interface';
 import UserEntity from '@persistence/app/user/user.entity';
 
@@ -11,7 +11,10 @@ const UserRepo = () => Inject(USER_REPOSITORY);
 
 @Injectable()
 export class UserServiceImpl implements UserService {
-  constructor(@UserRepo() private userRepository: UserRepository) {}
+  constructor(
+    @UserRepo()
+    private readonly userRepository: UserRepository,
+  ) {}
 
   /**
    *
@@ -20,7 +23,7 @@ export class UserServiceImpl implements UserService {
    * @return {Promise<UserModel[]>}
    */
   async all(): Promise<UserModel[]> {
-    const users = await this.userRepository.find();
+    const users = await this.userRepository.findAll();
     if (!users) return null;
 
     return Promise.all(users.map((user) => UserModel.toModel(user)));
@@ -35,12 +38,21 @@ export class UserServiceImpl implements UserService {
    *
    */
   async create(dto: ICreateUser): Promise<UserModel> {
-    const token = await this.userRepository.save({
+    const token = this.userRepository.create({
       givenName: dto.given_name,
       familyName: dto.family_name,
       patronymic: dto.patronymic,
       id: dto.id,
     });
+
+    this.userRepository.persist(token);
+
+    // await this.userRepository.save({
+    //   givenName: dto.given_name,
+    //   familyName: dto.family_name,
+    //   patronymic: dto.patronymic,
+    //   id: dto.id,
+    // });
 
     if (!token) return null;
 

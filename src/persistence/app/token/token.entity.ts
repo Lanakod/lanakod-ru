@@ -1,35 +1,14 @@
-import {
-  BaseEntity,
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Entity, Property } from '@mikro-orm/core';
+import { TokenRepositoryImpl } from '@persistence/app/token/token.repository';
+import { BaseEntity } from '@common/types/base-entity.type';
 
-@Entity({ name: 'tokens' })
-export default class TokenEntity extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column('varchar')
+@Entity({ tableName: 'tokens', customRepository: () => TokenRepositoryImpl })
+export class TokenEntity extends BaseEntity {
+  @Property({
+    type: 'varchar',
+  })
   refreshToken: string;
 
-  @Column('int')
+  @Property({ type: 'int' })
   userId: number;
-
-  @CreateDateColumn({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
-    name: 'created_at',
-  })
-  createdAt: Date;
-
-  @UpdateDateColumn({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
-    onUpdate: 'CURRENT_TIMESTAMP(6)',
-    name: 'updated_at',
-  })
-  updatedAt: Date;
 }

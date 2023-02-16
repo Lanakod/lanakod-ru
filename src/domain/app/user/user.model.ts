@@ -10,6 +10,7 @@ export default class UserModel {
   get Id(): number {
     return this.id;
   }
+
   set Id(value: number) {
     this.id = value;
   }
@@ -17,6 +18,7 @@ export default class UserModel {
   get GivenName(): string {
     return this.givenName;
   }
+
   set GivenName(value: string) {
     this.givenName = value;
   }
@@ -24,6 +26,7 @@ export default class UserModel {
   get FamilyName(): string {
     return this.familyName;
   }
+
   set FamilyName(value: string) {
     this.familyName = value;
   }
@@ -31,6 +34,7 @@ export default class UserModel {
   get Patronymic(): string {
     return this.patronymic;
   }
+
   set Patronymic(value: string) {
     this.patronymic = value;
   }
@@ -38,6 +42,7 @@ export default class UserModel {
   get Email(): string {
     return this.email;
   }
+
   set Email(value: string) {
     this.email = value;
   }

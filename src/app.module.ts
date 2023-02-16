@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ApiModule } from '@api/api.module';
-import { AuthModule } from '@auth/auth.module';
+// import { AuthModule } from '@auth/auth.module';
 import { DatabaseModule } from '@database/database.module';
 import { DomainModule } from '@domain/domain.module';
 import { PersistenceModule } from '@persistence/persistence.module';
@@ -14,7 +14,7 @@ import { PersistenceModule } from '@persistence/persistence.module';
       cache: true,
     }),
     ApiModule,
-    AuthModule,
+    // AuthModule,
     DatabaseModule,
     DomainModule,
     PersistenceModule,

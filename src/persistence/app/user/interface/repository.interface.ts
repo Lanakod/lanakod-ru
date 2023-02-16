@@ -1,7 +1,7 @@
 import UserEntity from '@persistence/app/user/user.entity';
-import { Repository } from 'typeorm';
+import { EntityRepository } from '@mikro-orm/core';
 
-export interface UserRepository extends Repository<UserEntity> {
+export interface UserRepository extends EntityRepository<UserEntity> {
   // FIXME
   // /**
   //  *
