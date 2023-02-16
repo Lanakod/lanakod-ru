@@ -35,6 +35,63 @@
           "length": 6,
           "mappedType": "datetime"
         },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        }
+      },
+      "name": "themes",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "themes_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "unsigned": true,
+          "autoincrement": true,
+          "primary": true,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
         "refresh_token": {
           "name": "refresh_token",
           "type": "varchar(255)",
@@ -183,6 +240,268 @@
           ],
           "referencedTableName": "public.tokens",
           "deleteRule": "set null",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "unsigned": true,
+          "autoincrement": true,
+          "primary": true,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "content": {
+          "name": "content",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "author_id": {
+          "name": "author_id",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        }
+      },
+      "name": "posts",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "posts_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "posts_author_id_foreign": {
+          "constraintName": "posts_author_id_foreign",
+          "columnNames": [
+            "author_id"
+          ],
+          "localTableName": "public.posts",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.users",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "post_entity_id": {
+          "name": "post_entity_id",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "theme_entity_id": {
+          "name": "theme_entity_id",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        }
+      },
+      "name": "posts_themes",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "posts_themes_pkey",
+          "columnNames": [
+            "post_entity_id",
+            "theme_entity_id"
+          ],
+          "composite": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "posts_themes_post_entity_id_foreign": {
+          "constraintName": "posts_themes_post_entity_id_foreign",
+          "columnNames": [
+            "post_entity_id"
+          ],
+          "localTableName": "public.posts_themes",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.posts",
+          "deleteRule": "cascade",
+          "updateRule": "cascade"
+        },
+        "posts_themes_theme_entity_id_foreign": {
+          "constraintName": "posts_themes_theme_entity_id_foreign",
+          "columnNames": [
+            "theme_entity_id"
+          ],
+          "localTableName": "public.posts_themes",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.themes",
+          "deleteRule": "cascade",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "unsigned": true,
+          "autoincrement": true,
+          "primary": true,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "content": {
+          "name": "content",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "author_id": {
+          "name": "author_id",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        },
+        "post_id": {
+          "name": "post_id",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        }
+      },
+      "name": "comments",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "comments_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "comments_author_id_foreign": {
+          "constraintName": "comments_author_id_foreign",
+          "columnNames": [
+            "author_id"
+          ],
+          "localTableName": "public.comments",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.users",
+          "updateRule": "cascade"
+        },
+        "comments_post_id_foreign": {
+          "constraintName": "comments_post_id_foreign",
+          "columnNames": [
+            "post_id"
+          ],
+          "localTableName": "public.comments",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.posts",
           "updateRule": "cascade"
         }
       }

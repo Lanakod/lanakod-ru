@@ -1,7 +1,8 @@
-import { Entity, OneToOne, Property } from '@mikro-orm/core';
+import { Entity, OneToMany, OneToOne, Property } from '@mikro-orm/core';
 import { UserRepositoryImpl } from '@persistence/app/user/user.repository';
 import { BaseEntity } from '@common/types/base-entity.type';
 import { TokenEntity } from '@persistence/app/token/token.entity';
+import { PostEntity } from '@persistence/app/post/post.entity';
 
 @Entity({
   tableName: 'users',
@@ -36,4 +37,7 @@ export default class UserEntity extends BaseEntity {
     nullable: true,
   })
   token?: TokenEntity;
+
+  @OneToMany(() => PostEntity, (post) => post.author)
+  posts: PostEntity[];
 }

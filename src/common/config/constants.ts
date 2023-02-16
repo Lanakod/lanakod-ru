@@ -42,7 +42,7 @@ export const UNAUTHORIZED_EXCEPTION =
  *
  */
 export const USER_REPOSITORY = 'UserRepo';
-export const FEEDBACK_REPOSITORY = 'FeedbackRepo';
+export const POST_REPOSITORY = 'PostRepo';
 export const TOKEN_REPOSITORY = 'TokenRepo';
 export const EVENT_REPOSITORY = 'EventRepo';
 export const EVENT_PLAN_REPOSITORY = 'EventPlanRepo';
